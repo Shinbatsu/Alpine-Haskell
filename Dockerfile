@@ -32,3 +32,16 @@ RUN echo "Downloading and installing ghcup" &&\
         exit 1 ;\
     fi ;\
     chmod +x /usr/bin/ghcup
+
+ARG GHC_VERSION
+RUN ghcup install ghc $GHC_VERSION &&\
+    ghcup set ghc $GHC_VERSION
+
+ARG CABAL_VERSION
+RUN ghcup install cabal $CABAL_VERSION &&\
+    ghcup set cabal $CABAL_VERSION
+
+ARG STACK_VERSION
+RUN ghcup install stack $STACK_VERSION &&\
+    ghcup set stack $STACK_VERSION &&\
+    stack config set system-ghc --global true
